@@ -1,0 +1,17 @@
+.container {
+  margin: 10px auto;
+  width: 600px;
+  padding: 0px 20px 20px 20px;
+  border: 3px solid #3D8EB9;
+  border-radius: 20px;
+  /*background-color: #54ACD2;*/
+}
+
+a {
+  text-decoration: none;
+  color: grey;
+}
+a:hover {
+  color: orange;
+  transition: color 0.5s;
+}
