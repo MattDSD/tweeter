@@ -1,4 +1,10 @@
-
-<h1>now get out</h1>
-<a href="/users/<%=@user.id%>/edit">Edit profile</a>
-<a href="/logout">Log out</a>
+<div class="container">
+  <h3><%= @user.username %>'s profile</h3>
+  <p><%= @user.first_name %> <%= @user.last_name %></p>
+  <p><%= @user.about %></p>
+  <p><%= @user.location %></p>
+  <p><%= @user.email %></p>
+  <p>Your password is: <%= @user.password %>. Now everyone knows</p>
+  <a href="/users/<%=@user.id%>/edit">Edit profile</a>
+  <a href="/logout">Log out</a>
+</div>

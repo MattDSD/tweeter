@@ -53,3 +53,16 @@ post '/users/:id/edit' do
     username: params[:username])
   redirect "/users/#{@user.id}/homepage"
 end
+
+get '/users/:id/delete' do
+  @user = User.find(params[:id])
+  session[:user_id] = nil
+  @user.delete
+  redirect '/'
+end
+
+
+
+
+
+
