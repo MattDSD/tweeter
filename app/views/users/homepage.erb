@@ -1,47 +1,70 @@
-  <img src ="<%= avatar_url(@user.email) %>">
+<center>
+<header id="home_head">
+  <h2>Tweeter</h2>
+  <nav class="nav">
+    <table id="nav_table">
+      <thead>
+        <tr>
+          <th><img id="small_avatar" src ="<%= avatar_url(@user.email) %>"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if logged_in? && page_owner? %>
+          <tr>
+            <td><a href="/">Home</a></td>
+          </tr>
+          <tr>
+            <td><a href="/users/<%=@user.id%>/followers">Followers</a></td>
+          </tr>
+          <tr>
+            <td><a href="/users/<%=@user.id%>/following">Following</a></td>
+          </tr>
+          <tr>
+            <td><a href="/users/<%=@user.id%>/edit">Edit profile</a></td>
+          </tr>
+          <tr>
+            <td><a href="/logout">Log out</a></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </nav>
+</header>
+
 <div class="container">
+  <section class="section">
+    <img src ="<%= avatar_url(@user.email) %>">
 
-<a href="/users/<%= @user.id %>/all_followers_tweets">Yo this is Alisa's sweet testing button</a>
+    <h3><%= @user.username %>'s profile</h3>
 
+      <p><%= @user.first_name %> <%= @user.last_name %></p>
+      <p><%= @user.about %></p>
+      <p><%= @user.location %></p>
+      <% if logged_in? && !page_owner? %>
+        <% if not_currently_followed_by_me(params[:id]) %>
+          <a href="/users/<%=current_user.id%>/follow/<%=params[:id]%>">Follow</a>
+        <% elsif !not_currently_followed_by_me(params[:id]) %>
+          <div id="friend">You are following this person</div>
+        <% end %>
+      <% end %>
 
-
-<h3><%= @user.username %>'s profile</h3>
-
-
-
-  <p><%= @user.first_name %> <%= @user.last_name %></p>
-  <p><%= @user.about %></p>
-  <p><%= @user.location %></p>
-  <% if logged_in? && !page_owner? %>
-    <% if not_currently_followed_by_me(params[:id]) %>
-      <a href="/users/<%=current_user.id%>/follow/<%=params[:id]%>">Follow</a>
-    <% elsif !not_currently_followed_by_me(params[:id]) %>
-      <div id="friend">You are following this person</div>
-    <% end %>
-  <% end %>
-
-  <a href="/">Home</a>
-  <% if logged_in? && page_owner? %>
-    <a href="/users/<%=@user.id%>/followers">Followers</a>
-    <a href="/users/<%=@user.id%>/following">Following</a>
-    <a href="/users/<%=@user.id%>/edit">Edit profile</a>
-    <a href="/logout">Log out</a>
-  <% end %>
-
+      <% if logged_in? && page_owner? %>
+        <a href="/users/<%=@user.id%>/followers">Followers</a>
+        <a href="/users/<%=@user.id%>/following">Following</a>
+        <a href="/users/<%=@user.id%>/edit">Edit profile</a>
+      <% end %>
+    </section>
 </div>
+
 <% if logged_in? && page_owner? %>
-  <a href="/users/<%= @user.id %>/tweets/new">Create new tweet</a>
+  <h2><a id="new_tweet" href="/users/<%= @user.id %>/tweets/new">Create new tweet</a></h2>
 <% end %>
 
-<% if !@user_tweets.nil? %>
- <h2><%= @user.username %>'s tweets</h2>
-  <% @user_tweets.reverse_order.each do |tweet| %>
-    <p><%= tweet.content %></p>
-    <% if logged_in? && page_owner? %>
-      <a href="/users/<%= @user.id %>/tweets/<%= tweet.id %>/delete"><input type="submit" value="Delete"></a>
-    <% end %>
-  <% end %>
-<% end %>
+</center>
+
+<center>
+  <%= erb :"users/all_followers_tweets" %>
+</center>
 
 <% if logged_in? && page_owner? %>
   <p>Recommended users:</p>
