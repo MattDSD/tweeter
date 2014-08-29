@@ -17,9 +17,13 @@ get '/signin' do
 end
 
 post '/signin' do
-  @user = User.find_by(username: params[:username])
-  session[:user_id] = @user.id
-  redirect "/"
+  @user = User.where(username: params[:username], password: params[:password]).first
+  if @user
+    session[:user_id] = @user.id
+    redirect "/"
+  else
+    "We don't recognize this username or password.  Please try again!"
+  end
 end
 
 get '/signup' do
