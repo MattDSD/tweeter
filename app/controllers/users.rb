@@ -87,6 +87,14 @@ get '/users/:id/following' do
     erb :"users/show_followings"
 end
 
+#### Alisa's Little Part ####
+
+get '/users/:id/all_followers_tweets' do 
+  @user = User.find(params[:id])
+
+  erb :"users/all_followers_tweets"
+
+end
 
 
 
