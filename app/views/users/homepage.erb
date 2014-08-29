@@ -66,6 +66,7 @@
   <%= erb :"users/all_followers_tweets" %>
 </center>
 
+<center>
 <% if logged_in? && page_owner? %>
   <p>Recommended users:</p>
   <!-- follow a user -->
@@ -75,3 +76,4 @@
     </p>
   <% end %>
 <% end %>
+</center>
