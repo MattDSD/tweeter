@@ -23,7 +23,7 @@
 
 <% if !@user_tweets.nil? %>
  <h2><%= @user.username %>'s tweets</h2>
-  <% @user_tweets.each do |tweet| %>
+  <% @user_tweets.reverse_order.each do |tweet| %>
     <p><%= tweet.content %></p>
     <% if logged_in? && page_owner? %>
       <a href="/users/<%= @user.id %>/tweets/<%= tweet.id %>/delete"><input type="submit" value="Delete"></a>
