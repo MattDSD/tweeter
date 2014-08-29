@@ -1,5 +1,6 @@
 User.delete_all
 Tweet.delete_all
+Following.delete_all
 
 10.times do
   User.create(
@@ -20,6 +21,8 @@ end
   )
 end
 
-30.times do
-  Following.create(following_id: rand(10) + 1, follower_id: rand(10) +1)
-end
+
+Following.create(following_id: 2, follower_id: 1)
+Following.create(following_id: 3, follower_id: 1)
+Following.create(following_id: 4, follower_id: 1)
+

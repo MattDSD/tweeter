@@ -15,3 +15,7 @@ a:hover {
   color: orange;
   transition: color 0.5s;
 }
+
+#friend {
+  color: green;
+}
