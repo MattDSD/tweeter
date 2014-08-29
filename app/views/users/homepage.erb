@@ -1,6 +1,8 @@
-<div class="container">
-  <h3><%= @user.username %>'s profile</h3>
   <img src ="<%= avatar_url(@user.email) %>">
+<div class="container">
+
+  <h3><%= @user.username %>'s profile</h3>
+
 
 
   <p><%= @user.first_name %> <%= @user.last_name %></p>

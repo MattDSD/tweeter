@@ -14,7 +14,7 @@ post '/users/:id/tweets/new' do
 
     @user = User.find(params[:id])
     @user.tweets << Tweet.create(content: params[:content])
-    redirect "/"
+    redirect "/users/#{@user.id}/homepage"
 
 end
 
