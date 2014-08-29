@@ -1,20 +1,36 @@
+  <img src ="<%= avatar_url(@user.email) %>">
 <div class="container">
-  <h3><%= @user.username %>'s profile</h3>
+
+<a href="/users/<%= @user.id %>/all_followers_tweets">Yo this is Alisa's sweet testing button</a>
+
+
+
+<h3><%= @user.username %>'s profile</h3>
+
+
+
   <p><%= @user.first_name %> <%= @user.last_name %></p>
   <p><%= @user.about %></p>
   <p><%= @user.location %></p>
-  <p><%= @user.email %></p>
-  <p>Your password is: <%= @user.password %>. Now everyone knows</p>
-  <a href="/users/<%=@user.id%>/edit">Edit profile</a>
-  <a href="/logout">Log out</a>
+  <a href="/">Home</a>
+  <% if logged_in? && page_owner? %>
+    <a href="/users/<%=@user.id%>/followers">Followers</a>
+    <a href="/users/<%=@user.id%>/following">Following</a>
+    <a href="/users/<%=@user.id%>/edit">Edit profile</a>
+    <a href="/logout">Log out</a>
+  <% end %>
 
 </div>
-<a href="/users/<%= @user.id %>/tweets/new">Create new tweet</a>
+<% if logged_in? && page_owner? %>
+  <a href="/users/<%= @user.id %>/tweets/new">Create new tweet</a>
+<% end %>
 
-<% if !@tweets.nil? %>
- <h2><%= @user.username %></h2>
-  <% @tweets.each do |tweet| %>
+<% if !@user_tweets.nil? %>
+ <h2><%= @user.username %>'s tweets</h2>
+  <% @user_tweets.reverse_order.each do |tweet| %>
     <p><%= tweet.content %></p>
-    <a href="/users/<%= @user.id %>/tweets/<%= tweet.id %>/delete"><input type="submit" value="Delete"></a>
+    <% if logged_in? && page_owner? %>
+      <a href="/users/<%= @user.id %>/tweets/<%= tweet.id %>/delete"><input type="submit" value="Delete"></a>
+    <% end %>
   <% end %>
 <% end %>

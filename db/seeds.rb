@@ -19,3 +19,7 @@ end
     retweet: false
   )
 end
+
+30.times do
+  Following.create(following_id: rand(10) + 1, follower_id: rand(10) +1)
+end
