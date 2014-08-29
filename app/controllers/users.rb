@@ -1,6 +1,14 @@
 get '/users/:id/homepage' do
   @user = User.find(params[:id])
   @user_tweets = @user.tweets
+  if current_user
+    @not_following = []
+    User.all.each do |that_user|
+      if not_currently_followed_by_me(that_user.id) || user_has_no_relationship(that_user.id)
+        @not_following << that_user
+      end
+    end
+  end
   erb :"users/homepage"
 end
 
@@ -20,7 +28,8 @@ end
 
 post '/signup' do
   User.create(params)
-  # consider signing the user in after signing up
+  @user = User.last
+  Following.create(following_id: @user.id, follower_id: @user.id)
   redirect '/'
 end
 
@@ -87,6 +96,7 @@ get '/users/:id/following' do
     erb :"users/show_followings"
 end
 
+
 #### Alisa's Little Part ####
 
 get '/users/:id/all_followers_tweets' do 
@@ -95,6 +105,14 @@ get '/users/:id/all_followers_tweets' do
   erb :"users/all_followers_tweets"
 
 end
+
+get '/users/:id/follow/:following_id' do
+  Following.create(following_id: params[:following_id], follower_id: current_user.id)
+  redirect "/users/#{current_user.id}/homepage"
+end
+
+
+
 
 
 

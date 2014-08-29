@@ -12,6 +12,14 @@
   <p><%= @user.first_name %> <%= @user.last_name %></p>
   <p><%= @user.about %></p>
   <p><%= @user.location %></p>
+  <% if logged_in? && !page_owner? %>
+    <% if not_currently_followed_by_me(params[:id]) %>
+      <a href="/users/<%=current_user.id%>/follow/<%=params[:id]%>">Follow</a>
+    <% elsif !not_currently_followed_by_me(params[:id]) %>
+      <div id="friend">You are following this person</div>
+    <% end %>
+  <% end %>
+
   <a href="/">Home</a>
   <% if logged_in? && page_owner? %>
     <a href="/users/<%=@user.id%>/followers">Followers</a>
@@ -32,5 +40,15 @@
     <% if logged_in? && page_owner? %>
       <a href="/users/<%= @user.id %>/tweets/<%= tweet.id %>/delete"><input type="submit" value="Delete"></a>
     <% end %>
+  <% end %>
+<% end %>
+
+<% if logged_in? && page_owner? %>
+  <p>Recommended users:</p>
+  <!-- follow a user -->
+  <% @not_following.each do |user| %>
+    <p>
+      <a href="/users/<%=user.id%>/homepage"><%= user.username %></a> <a href="/users/<%=@user.id%>/follow/<%=user.id%>"><br><input type="submit" value="Follow"></a>
+    </p>
   <% end %>
 <% end %>

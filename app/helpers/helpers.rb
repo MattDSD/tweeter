@@ -18,5 +18,13 @@ helpers do
 		"http://gravatar.com/avatar/#{gravatar_id}"
 	end
 
+  def not_currently_followed_by_me(user_id)
+    Following.where(following_id: user_id, follower_id: current_user.id).count == 0
+  end
+
+  def user_has_no_relationship(user_id)
+    Following.where(following_id: user_id).count == 0
+  end
+
 
 end
