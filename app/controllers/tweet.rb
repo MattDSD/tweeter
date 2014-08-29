@@ -30,7 +30,7 @@ get '/users/:id/tweets/:tweet_id/delete' do
     @user = User.find(params[:id])
     @tweet = Tweet.find(params[:tweet_id])
     @tweet.destroy
-    redirect "/"
+    redirect "/users/#{@user.id}/homepage"
   else
     redirect "/signin"
   end
