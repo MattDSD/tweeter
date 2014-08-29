@@ -1,0 +1,27 @@
+<div class="container">
+    <form class="inputfields" action="/users/<%=@user.id%>/edit" method="post">
+    <!-- other form elements here -->
+    <h2>Edit profile</h2>
+    <p>First name</p>
+    <input type="text" name="first_name" value="<%=@user.first_name%>">
+    </br>
+    <p>Last name</p>
+    <input type="text" name="last_name" value="<%=@user.last_name%>">
+    </br></br>
+    <p>Username</p>
+    <input type="text" name="username" value="<%=@user.username%>">
+    </br>
+    <p>Email</p>
+    <input type="text" name="email" value="<%=@user.email%>">
+    </br>
+    <p>Password</p>
+    <input type="text" name="password" value="<%=@user.password%>">
+     <p>About Me</p>
+    <input type="text" name="about" value="<%=@user.about%>">
+     <p>Location</p>
+    <input type="text" name="location" value="<%=@user.location%>">
+    </br></br>
+    <input class="submit" type="submit">
+  </form>
+  <a href="/users/<%=@user.id%>/delete">Delete this account</a>
+</div>
