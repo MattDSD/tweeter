@@ -9,9 +9,13 @@ get '/signin' do
 end
 
 post '/signin' do
-  @user = User.find_by(username: params[:username])
-  session[:user_id] = @user.id
-  redirect "/"
+  user = User.where(username: params[:username], password: params[:password]).first
+  if user && user.password == params[:password]
+    session[:user_id] = user.id
+    redirect '/'
+  else
+    redirect '/'
+  end
 end
 
 get '/signup' do
@@ -19,8 +23,11 @@ get '/signup' do
 end
 
 post '/signup' do
-  User.create(params)
-  # consider signing the user in after signing up
+   # consider signing the user in after signing up
+  user = User.new(username: params[:username])
+  user.password = params[:password]
+  user.save!
+  session[:user_id] = user.id
   redirect '/'
 end
 
