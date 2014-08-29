@@ -8,4 +8,8 @@ helpers do
   def logged_in?
     !current_user.nil?
   end
+
+  def page_owner?
+    @current_user.id == params[:id].to_i
+  end
 end
